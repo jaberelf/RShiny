@@ -1,0 +1,101 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+## Load Packages
+```{r}
+library(tidyverse)
+library(shiny)
+data(iris)
+```
+
+
+
+```{r}
+#shiny template
+
+
+
+num <- sliderInput(inputId = "num", min = 100, max =1000, value = 100, label = "Choose")
+hist <- plotOutput(outputId = "hist", )
+
+ui <- fluidPage(
+  num , hist
+)
+
+
+
+
+
+server <- function(input, output) {
+  
+  
+  output$hist <- renderPlot({
+    hist(rnorm(input$num), main = "Histogram", xlab = "Num")
+    })
+}
+
+shinyApp(ui, server)
+
+
+```
+### Kmeans with shiny
+
+```{r}
+data(iris)
+iris <- iris %>% select(-Species)
+
+km <- kmeans(iris, 3)
+
+irisclusters <- cbind(iris, km$cluster)
+
+#yesno <- selectInput(inputId = "yesno", label = "Let the algo choose")
+
+#put in conditional panel
+nclust <- sliderInput(inputId = "nclust", min = 2, max = 20, value = 2, label = "Choose")
+
+scatter <- plotOutput(outputId = "scatter")
+
+
+
+ui <- fluidPage(
+  scatter, nclust, text
+  
+)
+
+
+server <- function(input, output) {
+  
+  
+    
+  output$scatter <- renderPlot({
+    km <- kmeans(iris, input$nclust)
+    ggplot(irisclusters, aes(x=Sepal.Length, y = Sepal.Width, color = factor(km$cluster))) + geom_point(size = 5) 
+    })
+  
+  
+}
+
+
+shinyApp(ui, server)
+
+```
+
+
+
+
+
+
+
