@@ -17,7 +17,7 @@ scatter <- plotOutput(outputId = "scatter")
 
 
 ui <- fluidPage(
-  scatter, nclust, text
+  scatter, nclust
   
 )
 
