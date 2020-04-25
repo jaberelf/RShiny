@@ -14,10 +14,11 @@ nclust <- sliderInput(inputId = "nclust", min = 2, max = 20, value = 2, label = 
 
 scatter <- plotOutput(outputId = "scatter")
 
+titlepanel <- titlePanel("KMeans CLust")
 
 
 ui <- fluidPage(
-  scatter, nclust
+  titlepanel, scatter, nclust
   
 )
 
