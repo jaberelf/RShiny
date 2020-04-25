@@ -61,6 +61,7 @@ km <- kmeans(iris, 3)
 
 irisclusters <- cbind(iris, km$cluster)
 
+irisclusters
 #yesno <- selectInput(inputId = "yesno", label = "Let the algo choose")
 
 #put in conditional panel
@@ -71,7 +72,7 @@ scatter <- plotOutput(outputId = "scatter")
 
 
 ui <- fluidPage(
-  scatter, nclust, text
+  scatter, nclust
   
 )
 
@@ -90,6 +91,8 @@ server <- function(input, output) {
 
 
 shinyApp(ui, server)
+
+
 
 ```
 
