@@ -2,7 +2,7 @@ library(shiny)
 
 port <- Sys.getenv('PORT')
 
-shiny::rundApp(
+shiny::runApp(
   appDir = getwd(),
   host = 'localhost',
   port = as.numeric(port)
